@@ -1,0 +1,258 @@
+/* ====================================
+   1. Variáveis & Reset Básico
+   ==================================== */
+   :root {
+    --color-primary-dark: #6a11cb; /* Roxo Escuro */
+    --color-primary-light: #2575fc; /* Azul */
+    --color-secondary: #00d4ff; /* Ciano/Verde */
+    --color-text-light: white;
+    --color-button-primary: #4a90e2; /* Azul dos Botões */
+    --color-glass-bg: rgba(255, 255, 255, 0.1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: var(--color-text-light);
+    /* Gradiente roxo-verde para o fundo principal */
+    background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 50%, var(--color-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ====================================
+   2. Header & Navegação
+   ==================================== */
+.header {
+    padding: 20px 40px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.logo-main {
+    font-size: 5em;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-icon {
+    font-size: 0.8em;
+}
+
+.navbar {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-item {
+    color: var(--color-text-light);
+    text-decoration: none;
+    font-size: 1.1em;
+    font-weight: bold;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+}
+
+.nav-item:hover, .nav-item.active {
+    opacity: 1;
+}
+
+/* ====================================
+   3. Estrutura Central (Main)
+   ==================================== */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+/* Estilo Base para os Cards/Forms centralizados (Login, Contato, Admin) */
+.glass-box {
+    background-color: var(--color-glass-bg);
+    backdrop-filter: blur(10px);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+}
+
+/* ====================================
+   4. Formulário e Inputs
+   ==================================== */
+.glass-box label {
+    align-self: flex-start;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+.glass-box input {
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 1em;
+    color: #333;
+    outline: none;
+}
+
+/* Título dentro das caixas (Contato/Admin) */
+.panel-title {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+/* ====================================
+   5. Botões
+   ==================================== */
+/* Botão de Envio (seta) usado em Login e Contato */
+.submit-button {
+    background-color: var(--color-button-primary); 
+    color: var(--color-text-light);
+    padding: 15px 30px;
+    border: none;
+    border-radius: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-button:hover {
+    background-color: #3b7cd1;
+    transform: translateY(-2px);
+}
+
+/* Botões de Opção (Admin) */
+.admin-option-button {
+    background-color: var(--color-primary-dark);
+    color: var(--color-text-light);
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.admin-option-button:hover {
+    background-color: #550aab;
+}
+
+/* ====================================
+   6. Estilos Específicos (Tela Sobre)
+   ==================================== */
+.home-logo-container {
+    text-align: center;
+}
+
+.content-container {
+    display: flex;
+    gap: 40px;
+    width: 90%;
+    max-width: 1200px;
+}
+
+.about-card {
+    border-radius: 20px;
+}
+
+.left-card {
+    flex: 1;
+    padding: 30px;
+    background-color: var(--color-glass-bg);
+    backdrop-filter: blur(10px);
+}
+
+.left-card h2 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    line-height: 1.2;
+}
+
+.left-card p {
+    font-size: 1.2em;
+    line-height: 1.6;
+}
+
+.right-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-image {
+    width: 100%;
+    height: auto;
+    border-radius: 15px;
+    object-fit: cover;
+    max-height: 300px;
+    background-color: rgba(0, 0, 0, 0.5); 
+}
+
+.motto-box {
+    padding: 20px;
+    border-radius: 15px;
+    /* Gradiente roxo-azul na parte inferior da imagem */
+    background: linear-gradient(to right, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+/* ====================================
+   7. Responsividade Básica
+   ==================================== */
+@media (max-width: 768px) {
+    .header {
+        padding: 15px 20px;
+        justify-content: center;
+    }
+    .navbar {
+        gap: 10px;
+    }
+    .nav-item {
+        font-size: 1em;
+    }
+    .logo-main {
+        font-size: 3em;
+    }
+    .content-container {
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+    }
+    .left-card h2 {
+        font-size: 2em;
+    }
+    .left-card p {
+        font-size: 1em;
+    }
+    .glass-box {
+        max-width: 90%;
+        padding: 30px;
+    }
+}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Sobre Nós{% endblock %}
+
+{% block content %}
+<div class="content-container">
+    <div class="about-card left-card">
+        <h2>O que é ContaColab?</h2>
+        <p>ContaColab é um sistema desenvolvido por alguns estudantes do Senac de Niterói, visando otimizar o trabalho do setor financeiro de empresas, possibilitando o cálculo do salário dos funcionários de acordo com o filtro sugerido pelo usuário do sistema.</p>
+    </div>
+    
+    <div class="about-card right-card">
+        <img src="{% static 'images/placeholder_coding.jpg' %}" alt="Pessoa codificando" class="card-image">
+        <div class="motto-box">
+            <p>Reinventar, Calcular e Gerar Valor</p>
+        </div>
+    </div>
+</div>
+{% endblock %}
