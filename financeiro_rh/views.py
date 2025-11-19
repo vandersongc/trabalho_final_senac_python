@@ -7,3 +7,17 @@ from django.contrib.messages import constants as message_constants
 
 
 # Create your views here.
+def home(request):
+    return render(request,'home.html')
+
+def sobre(request):
+    return render(request, 'sobre.html')
+
+def login(request):
+    return render(request, 'login.html')
+
+def contato(request):
+    return render(request, 'contato.html')
+
+def admin(request):
+    return render(request, 'admin.html')

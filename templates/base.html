@@ -9,23 +9,22 @@
 </head>
 <body>
     
+    
     <header class="header">
         <h1 class="logo-small">ContaColab <span class="logo-icon">💵</span></h1>
+
+        {% include 'partials/navbar.html' %}
         
-        <nav class="navbar">
-            <a href="{% url 'home' %}" class="nav-item {% if current_page == 'home' %}active{% endif %}">Página Inicial</a>
-            <a href="{% url 'about' %}" class="nav-item {% if current_page == 'about' %}active{% endif %}">Sobre</a>
-            <a href="{% url 'contact' %}" class="nav-item {% if current_page == 'contact' %}active{% endif %}">Contato</a>
-            <a href="{% url 'login' %}" class="nav-item {% if current_page == 'login' %}active{% endif %}">Login</a>
-        </nav>
     </header>
 
     <main class="main-content">
         {% block content %}
+
             {% endblock %}
     </main>
 
     {% block extra_js %}
+
     {% endblock %}
     
 </body>

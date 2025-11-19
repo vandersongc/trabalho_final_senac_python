@@ -1,0 +1,7 @@
+
+        <nav class="navbar">
+            <a href="{% url 'home' %}" class="nav-item {% if current_page == 'home' %}active{% endif %}">Página Inicial</a>
+            <a href="{% url 'sobre' %}" class="nav-item {% if current_page == 'about' %}active{% endif %}">Sobre</a>
+            <a href="{% url 'contato' %}" class="nav-item {% if current_page == 'contact' %}active{% endif %}">Contato</a>
+            <a href="{% url 'login' %}" class="nav-item {% if current_page == 'login' %}active{% endif %}">Login</a>
+        </nav>
