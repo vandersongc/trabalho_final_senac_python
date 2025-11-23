@@ -13,7 +13,15 @@
     <header class="header">
         <h1 class="logo-main">ContaColab<span class="logo-icon">💵</span></h1>
 
-        {% include 'partials/navbar.html' %}
+        <button class="menu-toggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        
+        <div id="nav-container" class="nav-container">
+            {% include 'partials/navbar.html' %}
+        </div>
         
     </header>
 
@@ -24,7 +32,16 @@
     </main>
 
     {% block extra_js %}
+    <script>
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navContainer = document.getElementById('nav-container');
 
+        menuToggle.addEventListener('click', () => {
+            const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true' || false;
+            menuToggle.setAttribute('aria-expanded', !isExpanded);
+            navContainer.classList.toggle('is-open');
+        });
+    </script>
     {% endblock %}
     
 </body>

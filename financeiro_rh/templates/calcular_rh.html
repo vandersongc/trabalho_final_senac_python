@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title %}Cálculos de RH{% endblock %}
+
+{% block content %}
+<div class="glass-box admin-panel">
+    <p class="panel-title">Escolha o Tipo de Cálculo</p>
+    
+    <button class="admin-option-button">
+        Contracheque
+    </button>
+    
+    <button class="admin-option-button">
+        Rescisão de Contrato
+    </button>
+    
+    <a href="{% url 'admin' %}" class="submit-button" style="margin-top: 10px; text-decoration: none;">
+        ← Voltar
+    </a>
+</div>
+{% endblock %}

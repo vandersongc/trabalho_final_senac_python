@@ -21,3 +21,6 @@ def contato(request):
 
 def admin(request):
     return render(request, 'admin.html')
+
+def calcular_rh(request):
+    return render(request, 'calcular_rh.html')
