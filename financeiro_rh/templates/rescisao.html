@@ -62,9 +62,16 @@
             <a href="{% url 'calcular_rh' %}" class="submit-button" style="text-decoration: none; font-size: 1em; padding: 10px 20px;">
                 Voltar
             </a>
-            <button type="submit" class="submit-button" style="font-size: 1em; padding: 10px 20px;">
-                Calcular
-            </button>
+
+            {% if user.is_authenticated %}
+                <button type="submit" class="submit-button" style="font-size: 1em; padding: 10px 20px;">
+                    Calcular
+                </button>
+            {% else %}
+                <button type="button" class="submit-button" style="font-size: 1em; padding: 10px 20px;" onclick="alert('Faça o login para executar o cálculo.')">
+                    Calcular
+                </button>
+            {% endif %}
         </div>
     </form>
 </div>
