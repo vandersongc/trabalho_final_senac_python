@@ -281,4 +281,5 @@ body {
     padding: 20px;
     border-radius: 15px;
     /* Gradiente diferente para destacar a frase de efeito */
-    background: linear-gradient(to right, var(--color-primary-dark
+    background: linear-gradient(to right, var(--color-primary-dark))
+}
