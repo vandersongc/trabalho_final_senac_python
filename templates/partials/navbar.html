@@ -1,8 +1,16 @@
+<nav class="navbar">
+    <a href="{% url 'home' %}" class="nav-item {% if current_page == 'home' %}active{% endif %}">Página Inicial</a>
+    <a href="{% url 'sobre' %}" class="nav-item {% if current_page == 'about' %}active{% endif %}">Sobre</a>
+    <a href="{% url 'calcular_rh' %}" class="nav-item {% if current_page == 'calculos' %}active{% endif %}">Cálculos RH</a>
+    <a href="{% url 'contato' %}" class="nav-item {% if current_page == 'contact' %}active{% endif %}">Contato</a>
 
-        <nav class="navbar">
-            <a href="{% url 'home' %}" class="nav-item {% if current_page == 'home' %}active{% endif %}">Página Inicial</a>
-            <a href="{% url 'sobre' %}" class="nav-item {% if current_page == 'about' %}active{% endif %}">Sobre</a>
-            <a href="{% url 'calcular_rh' %}" class="nav-item {% if current_page == 'calculos' %}active{% endif %}">Cálculos RH</a>
-            <a href="{% url 'contato' %}" class="nav-item {% if current_page == 'contact' %}active{% endif %}">Contato</a>
-            <a href="{% url 'login' %}" class="nav-item {% if current_page == 'login' %}active{% endif %}">Login</a>
-        </nav>
+    {% if user.is_authenticated %}
+        <span class="nav-item" style="cursor: default; color: #a5c6ff; font-weight: bold;">
+            Olá, {{ user.username|title }}
+        </span>
+        
+        <a href="{% url 'logout' %}" class="nav-item" style="color: #ff9999;">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="nav-item {% if current_page == 'login' %}active{% endif %}">Login</a>
+    {% endif %}
+</nav>

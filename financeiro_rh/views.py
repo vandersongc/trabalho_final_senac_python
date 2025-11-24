@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth import logout
 from datetime import datetime
 # Importações dos nossos novos arquivos
 from .forms import ContrachequeForm, RescisaoForm, ContatoForm
@@ -15,6 +16,10 @@ def sobre(request):
 
 def login(request):
     return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request) # Encerra a sessão do usuário
+    return redirect('home') # Redireciona para a página inicial
 
 def admin(request):
     return render(request, 'admin.html')
@@ -147,3 +152,7 @@ def rescisao(request):
             context['erro'] = "Dados inválidos."
 
     return render(request, 'rescisao.html', context)
+
+def logout_view(request):
+    logout(request)
+    return redirect('home')
