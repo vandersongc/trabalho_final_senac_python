@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Cálculo de Contracheque{% endblock %}
+
+{% block content %}
+<div class="glass-box" style="max-width: 800px;">
+    <p class="panel-title">Demonstrativo de Pagamento</p>
+    
+    <form method="post" style="width: 100%;">
+        {% csrf_token %}
+        <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; color: white;">
+            <thead>
+                <tr style="border-bottom: 2px solid rgba(255,255,255,0.3);">
+                    <th style="padding: 10px; text-align: left;">Descrição</th>
+                    <th style="padding: 10px; text-align: right;">Referência</th>
+                    <th style="padding: 10px; text-align: right;">Vencimentos</th>
+                    <th style="padding: 10px; text-align: right;">Descontos</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="padding: 10px;">Salário Base</td>
+                    <td style="padding: 10px; text-align: right;">30 dias</td>
+                    <td style="padding: 10px; text-align: right;">
+                        <input type="number" step="0.01" name="venc_salario" value="{{ salario_base|default:'' }}" placeholder="Digite o Salário" style="width: 120px; padding: 5px; color: #333;" required>
+                    </td>
+                    <td style="padding: 10px; text-align: right;"></td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">INSS</td>
+                    <td style="padding: 10px; text-align: right;">{{ porc_inss|default:"-" }}%</td>
+                    <td style="padding: 10px; text-align: right;"></td>
+                    <td style="padding: 10px; text-align: right; color: #ffcccc;">
+                        R$ {{ val_inss|default:"0,00" }}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 10px;">IRRF</td>
+                    <td style="padding: 10px; text-align: right;">{{ porc_irrf|default:"-" }}%</td>
+                    <td style="padding: 10px; text-align: right;"></td>
+                    <td style="padding: 10px; text-align: right; color: #ffcccc;">
+                        R$ {{ val_irrf|default:"0,00" }}
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr style="border-top: 2px solid rgba(255,255,255,0.3); font-weight: bold;">
+                    <td style="padding: 15px 10px;">TOTAIS</td>
+                    <td></td>
+                    <td style="padding: 15px 10px; text-align: right;">R$ {{ salario_base|default:"0,00" }}</td>
+                    <td style="padding: 15px 10px; text-align: right; color: #ffcccc;">R$ {{ total_descontos|default:"0,00" }}</td>
+                </tr>
+                <tr style="background-color: rgba(255,255,255,0.1);">
+                    <td colspan="2" style="padding: 15px 10px;"><strong>VALOR LÍQUIDO</strong></td>
+                    <td colspan="2" style="padding: 15px 10px; text-align: right; font-size: 1.5em; color: #ccffcc;">
+                        <strong>R$ {{ salario_liquido|default:"0,00" }}</strong>
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <a href="{% url 'calcular_rh' %}" class="submit-button" style="text-decoration: none; font-size: 1em; padding: 10px 20px;">
+                Voltar
+            </a>
+            <button type="submit" class="submit-button" style="font-size: 1em; padding: 10px 20px;">
+                Calcular
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

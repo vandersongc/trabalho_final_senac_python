@@ -10,4 +10,6 @@ urlpatterns = [
     path('contato',views.contato, name='contato'),
     path('admin/',views.admin, name='admin'),
     path('calcular-rh/', views.calcular_rh, name='calcular_rh'),
+    path('contracheque/', views.contracheque, name='contracheque'),
+    path('rescisao/', views.rescisao, name='rescisao'),
 ]

@@ -6,15 +6,15 @@
 <div class="glass-box admin-panel">
     <p class="panel-title">Escolha o Tipo de Cálculo</p>
     
-    <button class="admin-option-button">
+    <a href="{% url 'contracheque' %}" class="admin-option-button" style="text-decoration: none; display: flex; justify-content: center; align-items: center;">
         Contracheque
-    </button>
+    </a>
     
-    <button class="admin-option-button">
+    <a href="{% url 'rescisao' %}" class="admin-option-button" style="text-decoration: none; display: flex; justify-content: center; align-items: center; margin-top: 10px;">
         Rescisão de Contrato
-    </button>
+    </a>
     
-    <a href="{% url 'admin' %}" class="submit-button" style="margin-top: 10px; text-decoration: none;">
+    <a href="{% url 'admin' %}" class="submit-button" style="margin-top: 20px; text-decoration: none;">
         ← Voltar
     </a>
 </div>

@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Cálculo de Rescisão{% endblock %}
+
+{% block content %}
+<div class="glass-box" style="max-width: 600px;">
+    <p class="panel-title">Simulação de Rescisão</p>
+    
+    <form method="post" style="width: 100%; display: flex; flex-direction: column; gap: 10px;">
+        {% csrf_token %}
+        
+        <table style="width: 100%; color: white;">
+            <tr>
+                <td style="padding: 5px;"><label for="data_admissao">Data Admissão:</label></td>
+                <td style="padding: 5px;"><input type="date" id="data_admissao" name="data_admissao" value="{{ data_admissao }}" required style="width: 100%;"></td>
+            </tr>
+            <tr>
+                <td style="padding: 5px;"><label for="data_demissao">Data Demissão:</label></td>
+                <td style="padding: 5px;"><input type="date" id="data_demissao" name="data_demissao" value="{{ data_demissao }}" required style="width: 100%;"></td>
+            </tr>
+            <tr>
+                <td style="padding: 5px;"><label for="motivo">Motivo:</label></td>
+                <td style="padding: 5px;">
+                    <select id="motivo" name="motivo" style="width: 100%; padding: 15px; border-radius: 10px; border: none;">
+                        <option value="sem_justa_causa" {% if motivo == 'sem_justa_causa' %}selected{% endif %}>Dispensa sem Justa Causa</option>
+                        <option value="pedido_demissao" {% if motivo == 'pedido_demissao' %}selected{% endif %}>Pedido de Demissão</option>
+                        <option value="justa_causa" {% if motivo == 'justa_causa' %}selected{% endif %}>Por Justa Causa</option>
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td style="padding: 5px;"><label for="ultimo_salario">Último Salário:</label></td>
+                <td style="padding: 5px;"><input type="number" id="ultimo_salario" name="ultimo_salario" step="0.01" value="{{ ultimo_salario }}" required style="width: 100%;"></td>
+            </tr>
+        </table>
+
+        <div style="margin-top: 15px; padding: 10px; background: rgba(255,255,255,0.1); border-radius: 10px;">
+            <p style="margin-bottom: 10px; font-weight: bold;">Verbas Rescisórias Estimadas:</p>
+            <ul style="list-style: none; padding: 0; text-align: left;">
+                <li style="display: flex; justify-content: space-between; padding: 5px 0;">
+                    <span>Saldo de Salário:</span> 
+                    <span>R$ {{ saldo_salario|default:"0,00" }}</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; padding: 5px 0;">
+                    <span>13º Proporcional:</span> 
+                    <span>R$ {{ decimo_terceiro|default:"0,00" }}</span>
+                </li>
+                <li style="display: flex; justify-content: space-between; padding: 5px 0;">
+                    <span>Férias Prop. + 1/3:</span> 
+                    <span>R$ {{ total_ferias|default:"0,00" }}</span>
+                </li>
+                <li style="border-top: 1px solid white; margin-top: 10px; padding-top: 10px; display: flex; justify-content: space-between; font-weight: bold; font-size: 1.2em; color: #ccffcc;">
+                    <span>Total Líquido Estimado:</span> 
+                    <span>R$ {{ total_rescisao|default:"0,00" }}</span>
+                </li>
+            </ul>
+            {% if motivo == 'justa_causa' %}
+            <p style="font-size: 0.8em; color: #ffcccc; margin-top: 5px;">* Justa causa remove direitos a 13º e Férias Proporcionais.</p>
+            {% endif %}
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center; margin-top: 10px;">
+            <a href="{% url 'calcular_rh' %}" class="submit-button" style="text-decoration: none; font-size: 1em; padding: 10px 20px;">
+                Voltar
+            </a>
+            <button type="submit" class="submit-button" style="font-size: 1em; padding: 10px 20px;">
+                Calcular
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
