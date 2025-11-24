@@ -2,15 +2,21 @@
    1. Variáveis & Reset Básico
    ==================================== */
    :root {
-    --color-primary-dark: #6a11cb; /* Roxo Escuro */
-    --color-primary-light: #2575fc; /* Azul */
-    --color-secondary: #00d4ff; /* Ciano/Verde */
-    --color-text-light: white;
-    --color-button-primary: #4a90e2; /* Azul dos Botões */
+    /* Definição de variáveis de cor (CSS Custom Properties). 
+       Facilita a manutenção: se quiser mudar o roxo principal, muda só aqui. */
+    --color-primary-dark: #6a11cb;   /* Roxo Escuro */
+    --color-primary-light: #2575fc;  /* Azul */
+    --color-secondary: #00d4ff;      /* Ciano/Verde */
+    --color-text-light: white;       /* Texto claro padrão */
+    --color-button-primary: #4a90e2; /* Azul dos Botões de ação */
+    
+    /* Cor de fundo para o efeito de vidro (branco com 10% de opacidade) */
     --color-glass-bg: rgba(255, 255, 255, 0.1);
 }
 
 * {
+    /* Reset básico: Garante que padding e bordas não aumentem 
+       a largura total dos elementos (evita quebra de layout). */
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -19,9 +25,14 @@
 body {
     font-family: 'Arial', sans-serif;
     color: var(--color-text-light);
-    /* Gradiente roxo-verde para o fundo principal */
+    
+    /* Fundo principal com gradiente diagonal (135 graus) misturando 3 cores */
     background: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 50%, var(--color-secondary) 100%);
+    
+    /* Garante que o corpo ocupe pelo menos 100% da altura da janela de visualização */
     min-height: 100vh;
+    
+    /* Prepara o body para usar Flexbox, organizando header e main verticalmente */
     display: flex;
     flex-direction: column;
 }
@@ -31,44 +42,48 @@ body {
    ==================================== */
 .header {
     padding: 20px 40px;
+    /* Espalha o logo para a esquerda e o menu para a direita */
     display: flex;
-    justify-content:space-between;
+    justify-content: space-between; 
     align-items: center;
 }
+
 .header img {
     height: 8rem;
     width: 10rem;
-
 }
-.header h1{
+
+.header h1 {
     font-size: 40px;
 }
 
 .logo-main {
     font-size: 5em;
     font-weight: bold;
+    /* Alinha o texto e o ícone de dinheiro lado a lado */
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
 .logo-icon {
-    font-size: 0.8em;
+    font-size: 0.8em; /* Ícone um pouco menor que o texto */
 }
 
 .navbar {
     display: flex;
-    gap: 20px;
+    gap: 20px; /* Espaçamento entre os links do menu */
 }
 
-/* Esconde o botão hambúrguer por padrão (Desktop) */
+/* --- Botão Menu Hambúrguer (Mobile) --- */
 .menu-toggle {
+    /* Escondido por padrão em telas grandes (Desktop) */
     display: none; 
     background: none;
     border: none;
     cursor: pointer;
     padding: 10px;
-    z-index: 100;
+    z-index: 100; /* Garante que fique acima de outros elementos */
 }
 
 .hamburger-line {
@@ -77,13 +92,13 @@ body {
     height: 3px;
     background-color: var(--color-text-light);
     margin: 5px 0;
-    transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out; /* Suaviza a animação se houver */
 }
 
-/* O container de navegação é sempre visível no desktop */
+/* --- Container dos Links de Navegação --- */
 .nav-container {
+    /* Padrão Desktop: Flexbox visível */
     display: flex;
-    /* Reseta o estilo para desktop */
     transform: translateX(0); 
     position: relative; 
     height: auto;
@@ -93,40 +108,46 @@ body {
 
 .nav-item {
     color: var(--color-text-light);
-    text-decoration: none;
+    text-decoration: none; /* Remove o sublinhado dos links */
     font-size: 1.1em;
     font-weight: bold;
-    opacity: 0.8;
+    opacity: 0.8; /* Levemente transparente quando inativo */
     transition: opacity 0.3s;
 }
 
 .nav-item:hover, .nav-item.active {
-    opacity: 1;
+    opacity: 1; /* Totalmente opaco ao passar o mouse ou se for a página ativa */
 }
 
 /* ====================================
    3. Estrutura Central (Main)
    ==================================== */
 .main-content {
+    /* Faz o conteúdo principal crescer para ocupar o espaço sobrando na tela */
     flex-grow: 1;
+    
+    /* Centraliza o conteúdo (formulários/cards) no meio da tela */
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
 }
 
-/* Estilo Base para os Cards/Forms centralizados (Login, Contato, Admin) */
+/* --- Glassmorphism (Caixa de Vidro) --- */
+/* Esta classe cria o efeito visual moderno usado nos formulários e cards */
 .glass-box {
-    background-color: var(--color-glass-bg);
-    backdrop-filter: blur(10px);
+    background-color: var(--color-glass-bg); /* Fundo semitransparente */
+    backdrop-filter: blur(10px);             /* O "segredo": borra o que está atrás */
     padding: 40px;
     border-radius: 20px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    
     width: 100%;
-    max-width: 400px;
+    max-width: 400px; /* Largura máxima para não ficar esticado em monitores grandes */
+    
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 15px; /* Espaço entre os inputs */
     text-align: center;
 }
 
@@ -134,7 +155,7 @@ body {
    4. Formulário e Inputs
    ==================================== */
 .glass-box label {
-    align-self: flex-start;
+    align-self: flex-start; /* Alinha labels à esquerda */
     font-size: 1.1em;
     font-weight: bold;
 }
@@ -143,13 +164,13 @@ body {
     padding: 15px;
     border: none;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco quase opaco para legibilidade */
     font-size: 1em;
-    color: #333;
-    outline: none;
+    color: #333; /* Texto escuro dentro do input */
+    outline: none; /* Remove a borda azul padrão do navegador ao clicar */
 }
 
-/* Título dentro das caixas (Contato/Admin) */
+/* Título dentro das caixas (Contato/Admin/Login) */
 .panel-title {
     font-size: 1.5em;
     font-weight: bold;
@@ -159,7 +180,7 @@ body {
 /* ====================================
    5. Botões
    ==================================== */
-/* Botão de Envio (seta) usado em Login e Contato */
+/* Botão de Envio (seta ou ação principal) */
 .submit-button {
     background-color: var(--color-button-primary); 
     color: var(--color-text-light);
@@ -169,19 +190,22 @@ body {
     font-size: 1.5em;
     cursor: pointer;
     margin-top: 20px;
-    transition: background-color 0.3s, transform 0.2s;
+    transition: background-color 0.3s, transform 0.2s; /* Animação suave */
     box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2); 
+    
+    /* Centraliza conteúdo (seta) dentro do botão */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
+/* Efeito ao passar o mouse no botão */
 .submit-button:hover {
     background-color: #3b7cd1;
-    transform: translateY(-2px);
+    transform: translateY(-2px); /* O botão "sobe" levemente */
 }
 
-/* Botões de Opção (Admin) */
+/* Botões de Opção (Menu Admin) */
 .admin-option-button {
     background-color: var(--color-primary-dark);
     color: var(--color-text-light);
@@ -208,7 +232,7 @@ body {
 
 .content-container {
     display: flex;
-    gap: 40px;
+    gap: 40px; /* Espaço entre o texto e a imagem */
     width: 90%;
     max-width: 1200px;
 }
@@ -217,10 +241,11 @@ body {
     border-radius: 20px;
 }
 
+/* Cartão da Esquerda (Texto) */
 .left-card {
-    flex: 1;
+    flex: 1; /* Ocupa metade do espaço */
     padding: 30px;
-    background-color: var(--color-glass-bg);
+    background-color: var(--color-glass-bg); /* Reusa o fundo de vidro */
     backdrop-filter: blur(10px);
 }
 
@@ -232,11 +257,12 @@ body {
 
 .left-card p {
     font-size: 1.2em;
-    line-height: 1.6;
+    line-height: 1.6; /* Melhora a leitura do texto */
 }
 
+/* Cartão da Direita (Imagem e Frase) */
 .right-card {
-    flex: 1;
+    flex: 1; /* Ocupa a outra metade */
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -246,7 +272,7 @@ body {
     width: 100%;
     height: auto;
     border-radius: 15px;
-    object-fit: cover;
+    object-fit: cover; /* Corta a imagem para preencher sem distorcer */
     max-height: 300px;
     background-color: rgba(0, 0, 0, 0.5); 
 }
@@ -254,83 +280,5 @@ body {
 .motto-box {
     padding: 20px;
     border-radius: 15px;
-    /* Gradiente roxo-azul na parte inferior da imagem */
-    background: linear-gradient(to right, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
-    text-align: center;
-    font-size: 1.5em;
-    font-weight: bold;
-}
-
-/* ====================================
-   7. Responsividade Básica
-   ==================================== */
-@media (max-width: 768px) {
-    
-    /* Header (Mobile) */
-    .header {
-        padding: 15px 20px;
-        /* Garante espaço entre o logo e o menu toggle */
-        justify-content: space-between; 
-    }
-    .logo-main {
-        font-size: 3em;
-    }
-
-    /* Navbar e Menu Hambúrguer (Mobile/Tablet) */
-    .menu-toggle {
-        display: block; /* Mostra o botão hambúrguer no mobile */
-    }
-    
-    .nav-container {
-        /* Posição lateral e escondida */
-        position: absolute;
-        top: 80px; /* Altura abaixo do cabeçalho (ajuste conforme necessário) */
-        right: 0;
-        width: 250px;
-        height: calc(100vh - 80px); /* Altura restante da tela */
-        background-color: var(--color-primary-dark);
-        box-shadow: -5px 0 15px rgba(0, 0, 0, 0.3);
-        transform: translateX(100%); /* Esconde o menu fora da tela */
-        transition: transform 0.3s ease-in-out;
-        z-index: 50;
-        overflow-y: auto; 
-    }
-    
-    .nav-container.is-open {
-        transform: translateX(0); /* Mostra o menu quando aberto pelo JavaScript */
-    }
-
-    .navbar {
-        /* Muda de horizontal para vertical no mobile */
-        flex-direction: column; 
-        align-items: flex-start;
-        padding: 20px;
-        gap: 10px;
-    }
-    
-    .nav-item {
-        /* Torna os links de navegação em blocos verticais */
-        display: block;
-        width: 100%;
-        padding: 10px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        font-size: 1.1em;
-    }
-    
-    /* Outros estilos responsivos */
-    .content-container {
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-    }
-    .left-card h2 {
-        font-size: 2em;
-    }
-    .left-card p {
-        font-size: 1em;
-    }
-    .glass-box {
-        max-width: 90%;
-        padding: 30px;
-    }
-}
+    /* Gradiente diferente para destacar a frase de efeito */
+    background: linear-gradient(to right, var(--color-primary-dark
