@@ -3,11 +3,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import logout
 from datetime import datetime
-# Importações dos nossos novos arquivos
+# Importações dos módulos locais
 from .forms import ContrachequeForm, RescisaoForm, ContatoForm
 from .models import HistoricoCalculo
 from .utils import calcular_inss, calcular_irrf, calcular_fgts
 
+# Views simples que apenas renderizam templates estáticos
 def home(request):
     return render(request,'home.html')
 
@@ -18,37 +19,33 @@ def login(request):
     return render(request, 'login.html')
 
 def logout_view(request):
-    logout(request) # Encerra a sessão do usuário
-    return redirect('home') # Redireciona para a página inicial
-
-def admin(request):
-    return render(request, 'admin.html')
+    logout(request) # Função do Django que limpa a sessão do usuário
+    return redirect('home')
 
 def calcular_rh(request):
     return render(request, 'calcular_rh.html')
 
-# --- Views Atualizadas com Melhorias ---
+# --- Views com Lógica de Negócio ---
 
 def contato(request):
     if request.method == 'POST':
-        form = ContatoForm(request.POST)
+        form = ContatoForm(request.POST) # Popula o formulário com dados enviados
         if form.is_valid():
-            # Aqui você poderia salvar no banco ou enviar e-mail
             nome = form.cleaned_data['name']
-            # Simulação de envio
+            # Feedback visual para o usuário usando o framework de mensagens do Django
             messages.success(request, f'Obrigado, {nome}! Sua mensagem foi enviada.')
             return redirect('contato')
     return render(request, 'contato.html')
 
-@login_required
+@login_required # Decorator: impede acesso se o usuário não estiver logado
 def contracheque(request):
-    context = {}
+    context = {} # Dicionário de dados que será enviado para o template HTML
     if request.method == 'POST':
         form = ContrachequeForm(request.POST)
         if form.is_valid():
             salario_base = float(form.cleaned_data['venc_salario'])
             
-            # Cálculos via Utils
+            # Chama as funções matemáticas definidas em utils.py
             val_inss = calcular_inss(salario_base)
             val_irrf = calcular_irrf(salario_base, val_inss)
             val_fgts = calcular_fgts(salario_base)
@@ -56,17 +53,19 @@ def contracheque(request):
             total_descontos = val_inss + val_irrf
             salario_liquido = salario_base - total_descontos
             
+            # Cálculos percentuais apenas para exibição
             porc_inss = round((val_inss / salario_base) * 100, 2)
             porc_irrf = round((val_irrf / salario_base) * 100, 2)
 
-            # Salvar Histórico no Banco
+            # Salva o resultado no banco de dados (Tabela HistoricoCalculo)
             HistoricoCalculo.objects.create(
-                usuario=request.user,
+                usuario=request.user, # Pega o usuário logado na sessão
                 tipo='contracheque',
                 salario_base=salario_base,
                 resultado_liquido=salario_liquido
             )
 
+            # Preenche o contexto com os resultados formatados para o HTML
             context = {
                 'calculado': True,
                 'salario_base': f"{salario_base:.2f}",
@@ -74,7 +73,7 @@ def contracheque(request):
                 'porc_inss': porc_inss,
                 'val_irrf': f"{val_irrf:.2f}",
                 'porc_irrf': porc_irrf,
-                'val_fgts': f"{val_fgts:.2f}", # Novo campo FGTS
+                'val_fgts': f"{val_fgts:.2f}",
                 'total_descontos': f"{total_descontos:.2f}",
                 'salario_liquido': f"{salario_liquido:.2f}"
             }
@@ -84,26 +83,25 @@ def contracheque(request):
 def rescisao(request):
     context = {}
     if request.method == 'POST':
-        # Usamos o form apenas para limpar/validar dados, 
-        # mas a lógica manual de request.POST ainda funciona bem para datas se preferir
-        # Para manter compatibilidade com seu template atual, vamos extrair direto:
         try:
+            # Obtém dados diretamente do POST (alternativa ao uso de form.cleaned_data)
             data_admissao = request.POST.get('data_admissao')
             data_demissao = request.POST.get('data_demissao')
             motivo = request.POST.get('motivo')
             ultimo_salario = float(request.POST.get('ultimo_salario', 0))
 
             if data_admissao and data_demissao and ultimo_salario > 0:
+                # Converte strings de data para objetos datetime do Python
                 dt_adm = datetime.strptime(data_admissao, '%Y-%m-%d')
                 dt_dem = datetime.strptime(data_demissao, '%Y-%m-%d')
                 
-                # Lógica de Meses
+                # Lógica para contar meses trabalhados no ano (fração igual ou superior a 15 dias conta como mês)
                 diff_days = (dt_dem - dt_adm).days
                 meses_proporcionais = int((dt_dem.month - dt_adm.month) + 1) if dt_dem.year == dt_adm.year else dt_dem.month
                 if dt_dem.day < 15: meses_proporcionais -= 1
                 if meses_proporcionais < 0: meses_proporcionais = 0
 
-                # Cálculos Financeiros
+                # Cálculos das verbas
                 saldo_salario = (ultimo_salario / 30) * dt_dem.day
                 decimo_terceiro = (ultimo_salario / 12) * meses_proporcionais
                 ferias_proporcionais = (ultimo_salario / 12) * meses_proporcionais
@@ -111,23 +109,22 @@ def rescisao(request):
                 
                 total_ferias = ferias_proporcionais + terco_ferias
 
-                # Multa FGTS (40% sobre o total depositado estimado - Simplificação)
-                # Em um sistema real, buscaríamos o saldo real do FGTS. 
-                # Aqui estimamos o FGTS total do período para calcular a multa.
+                # Estimativa de Multa FGTS (lógica simplificada para simulação)
                 meses_totais_trabalhados = (dt_dem.year - dt_adm.year) * 12 + dt_dem.month - dt_adm.month
                 saldo_fgts_estimado = (ultimo_salario * 0.08) * meses_totais_trabalhados
                 multa_fgts = 0.0
 
+                # Regras baseadas no motivo do desligamento
                 if motivo == 'sem_justa_causa':
-                    multa_fgts = saldo_fgts_estimado * 0.40
+                    multa_fgts = saldo_fgts_estimado * 0.40 # 40% de multa
                 elif motivo == 'justa_causa':
-                    decimo_terceiro = 0.0
-                    total_ferias = 0.0
+                    decimo_terceiro = 0.0 # Perde o direito
+                    total_ferias = 0.0    # Perde o direito
                     multa_fgts = 0.0
                 
                 total_rescisao = saldo_salario + decimo_terceiro + total_ferias + multa_fgts
 
-                # Salvar Histórico
+                # Registra no histórico
                 HistoricoCalculo.objects.create(
                     usuario=request.user,
                     tipo='rescisao',
@@ -135,6 +132,7 @@ def rescisao(request):
                     resultado_liquido=total_rescisao
                 )
 
+                # Contexto de resposta
                 context = {
                     'calculado': True,
                     'data_admissao': data_admissao,
@@ -144,7 +142,7 @@ def rescisao(request):
                     'saldo_salario': f"{saldo_salario:.2f}",
                     'decimo_terceiro': f"{decimo_terceiro:.2f}",
                     'total_ferias': f"{total_ferias:.2f}",
-                    'multa_fgts': f"{multa_fgts:.2f}", # Exibir Multa
+                    'multa_fgts': f"{multa_fgts:.2f}",
                     'total_rescisao': f"{total_rescisao:.2f}"
                 }
 
@@ -152,7 +150,3 @@ def rescisao(request):
             context['erro'] = "Dados inválidos."
 
     return render(request, 'rescisao.html', context)
-
-def logout_view(request):
-    logout(request)
-    return redirect('home')
