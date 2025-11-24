@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import logout
 from datetime import datetime
 # Importações dos módulos locais
-from .forms import ContrachequeForm, RescisaoForm, ContatoForm
+from .forms import ContrachequeForm, RescisaoForm, ContatoForm, CadastroForm
 from .models import HistoricoCalculo
 from .utils import calcular_inss, calcular_irrf, calcular_fgts
 from django.contrib.auth.forms import UserCreationForm
@@ -28,14 +28,14 @@ def calcular_rh(request):
 
 def cadastro(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CadastroForm(request.POST)
         if form.is_valid():
             form.save() # Salva o usuário no banco
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Conta criada para {username}! Faça login.')
+            email = form.cleaned_data.get('email')
+            messages.success(request, f'Conta criada para {email}! Faça login.')
             return redirect('login') # Redireciona para o login após sucesso
     else:
-        form = UserCreationForm()
+        form = CadastroForm()
     return render(request, 'cadastro.html', {'form': form})
 
 # --- Views com Lógica de Negócio ---

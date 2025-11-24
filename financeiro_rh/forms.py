@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
 
 # Formulário para entrada de dados do Contracheque
 class ContrachequeForm(forms.Form):
@@ -23,3 +25,28 @@ class RescisaoForm(forms.Form):
 class ContatoForm(forms.Form):
     name = forms.CharField(label='Nome', max_length=100)
     email = forms.EmailField(label='E-mail') # EmailField valida se o texto tem formato de e-mail.
+
+class CadastroForm(UserCreationForm):
+    # Define o campo de email como obrigatório e com o rótulo correto
+    email = forms.EmailField(label='E-mail', required=True) 
+
+    
+    class Meta:
+        model = User
+        # Mostra apenas E-mail e Primeiro Nome (além das senhas que já vêm no UserCreationForm)
+        fields = ('email', 'first_name')
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        if User.objects.filter(email=email).exists():
+            raise forms.ValidationError("Este e-mail já está cadastrado. Tente fazer login.")
+        return email
+
+    def save(self, commit=True):
+        # Pega os dados do formulário sem salvar ainda
+        user = super().save(commit=False)
+        # AQUI ESTÁ O TRUQUE: Copia o e-mail para o campo 'username'
+        user.username = self.cleaned_data['email']
+        if commit:
+            user.save()
+        return user
