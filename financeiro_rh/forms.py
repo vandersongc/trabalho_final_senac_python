@@ -1,0 +1,20 @@
+#Isso ajuda na validação dos dados.
+
+from django import forms
+
+class ContrachequeForm(forms.Form):
+    venc_salario = forms.DecimalField(label='Salário Base', min_value=0, decimal_places=2)
+
+class RescisaoForm(forms.Form):
+    data_admissao = forms.DateField(label='Data Admissão')
+    data_demissao = forms.DateField(label='Data Demissão')
+    motivo = forms.ChoiceField(choices=[
+        ('sem_justa_causa', 'Dispensa sem Justa Causa'),
+        ('pedido_demissao', 'Pedido de Demissão'),
+        ('justa_causa', 'Por Justa Causa')
+    ])
+    ultimo_salario = forms.DecimalField(label='Último Salário', min_value=0, decimal_places=2)
+
+class ContatoForm(forms.Form):
+    name = forms.CharField(label='Nome', max_length=100)
+    email = forms.EmailField(label='E-mail')

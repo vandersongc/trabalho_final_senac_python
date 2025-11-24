@@ -54,6 +54,14 @@
                     <td colspan="2" style="padding: 15px 10px; text-align: right; font-size: 1.5em; color: #ccffcc;">
                         <strong>R$ {{ salario_liquido|default:"0,00" }}</strong>
                     </td>
+                <tr>
+                    <td style="padding: 10px;">FGTS (8%)</td>
+                    <td style="padding: 10px; text-align: right;">-</td>
+                    <td style="padding: 10px; text-align: right;"></td>
+                    <td style="padding: 10px; text-align: right; color: #cccccc;">
+                        R$ {{ val_fgts|default:"0,00" }}
+                    </td>
+                </tr>
                 </tr>
             </tfoot>
         </table>
