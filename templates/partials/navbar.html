@@ -11,6 +11,7 @@
         
         <a href="{% url 'logout' %}" class="nav-item" style="color: #ff9999;">Logout</a>
     {% else %}
+        <a href="{% url 'cadastro' %}" class="nav-item">Cadastrar</a>
         <a href="{% url 'login' %}" class="nav-item {% if current_page == 'login' %}active{% endif %}">Login</a>
     {% endif %}
 </nav>

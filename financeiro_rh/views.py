@@ -7,6 +7,7 @@ from datetime import datetime
 from .forms import ContrachequeForm, RescisaoForm, ContatoForm
 from .models import HistoricoCalculo
 from .utils import calcular_inss, calcular_irrf, calcular_fgts
+from django.contrib.auth.forms import UserCreationForm
 
 # Views simples que apenas renderizam templates estáticos
 def home(request):
@@ -24,6 +25,18 @@ def logout_view(request):
 
 def calcular_rh(request):
     return render(request, 'calcular_rh.html')
+
+def cadastro(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save() # Salva o usuário no banco
+            username = form.cleaned_data.get('username')
+            messages.success(request, f'Conta criada para {username}! Faça login.')
+            return redirect('login') # Redireciona para o login após sucesso
+    else:
+        form = UserCreationForm()
+    return render(request, 'cadastro.html', {'form': form})
 
 # --- Views com Lógica de Negócio ---
 
