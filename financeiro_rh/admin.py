@@ -1,19 +1,32 @@
 from django.contrib import admin
 from .models import HistoricoCalculo
 
-# Configuração para melhorar a visualização na lista do Admin
 class HistoricoCalculoAdmin(admin.ModelAdmin):
-    # Colunas que serão exibidas na tabela
     list_display = ('usuario', 'tipo', 'salario_base', 'resultado_liquido', 'data_calculo')
-    
-    # Filtros laterais para ajudar na busca
     list_filter = ('tipo', 'data_calculo')
-    
-    # Barra de pesquisa (busca pelo nome do usuário ou e-mail)
     search_fields = ('usuario__username', 'usuario__email')
-    
-    # Ordenação padrão (do mais recente para o mais antigo)
     ordering = ('-data_calculo',)
 
-# Registra o modelo com a configuração acima
+    # --- Lógica de Segurança de Roles ---
+    
+    def get_queryset(self, request):
+        qs = super().get_queryset(request)
+        # Se for superusuário ou Gestor, vê tudo
+        if request.user.is_superuser or request.user.groups.filter(name='Gestores_RH').exists():
+            return qs
+        # Se for colaborador comum, só vê os seus próprios registros
+        return qs.filter(usuario=request.user)
+
+    def has_change_permission(self, request, obj=None):
+        # Impede que colaboradores editem registros (histórico deve ser imutável para eles)
+        if not request.user.is_superuser and not request.user.groups.filter(name='Gestores_RH').exists():
+            return False
+        return True
+
+    def has_delete_permission(self, request, obj=None):
+        # Impede que colaboradores deletem registros
+        if not request.user.is_superuser and not request.user.groups.filter(name='Gestores_RH').exists():
+            return False
+        return True
+
 admin.site.register(HistoricoCalculo, HistoricoCalculoAdmin)
