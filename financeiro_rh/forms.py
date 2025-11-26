@@ -27,8 +27,8 @@ class RescisaoForm(forms.Form):
 # Formulário simples de Contato
 class ContatoForm(forms.Form):
     name = forms.CharField(label='Nome', max_length=100)
-    email = forms.EmailField(label='E-mail') # EmailField valida se o texto tem formato de e-mail.
-
+    email = forms.EmailField(label='E-mail')    # EmailField valida se o texto tem formato de e-mail.
+    mesagem = forms.CharField(label='messagem', max_length=300)
 class CadastroForm(UserCreationForm):
     # Define o campo de email como obrigatório e com o rótulo correto
     email = forms.EmailField(label='E-mail', required=True) 

@@ -164,7 +164,7 @@ body {
     padding: 15px;
     border: none;
     border-radius: 10px;
-    background-color: rgba(255, 255, 255, 0.8); /* Fundo branco quase opaco para legibilidade */
+    background-color: #ffffffcc; /* Fundo branco quase opaco para legibilidade */
     font-size: 1em;
     color: #333; /* Texto escuro dentro do input */
     outline: none; /* Remove a borda azul padrão do navegador ao clicar */
@@ -176,7 +176,17 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
 }
+#messagem {
+    width: 320px;
+    height: 150px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    padding: 10px;
+    font-size: 1.4em;
+    outline: none;
+    border: none;
 
+}
 /* ====================================
    5. Botões
    ==================================== */
