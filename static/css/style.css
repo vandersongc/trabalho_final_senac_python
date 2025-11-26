@@ -369,10 +369,26 @@ body {
         max-width: 90%; /* Ocupa quase toda a largura em telas pequenas */
         padding: 30px;
     }
-    .glass-box textarea {
-        max-width: 90%; /* Ocupa quase toda a largura em telas pequenas */
-        padding: 30px;
-    }
+/* Estilo para a caixa de mensagem (Textarea) */
+    #menssagem {
+ 
+    
+    height: 150px; /* Altura fixa inicial */
+    
+    /* Estilos visuais (para combinar com os inputs existentes) */
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    border: none;
+    padding: 15px;
+    
+    /* Tipografia */
+    color: #333;
+    font-size: 1em;
+    font-family: 'Arial', sans-serif; /* Importante para manter a fonte igual aos inputs */
+    
+    outline: none;
+    resize: vertical; /* Permite ao usuário aumentar a altura, mas não a largura */
+}
 }
 
 /* ====================================
