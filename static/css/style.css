@@ -359,3 +359,40 @@ body {
         padding: 30px;
     }
 }
+
+/* ====================================
+   8. Estilos de Impressão (PDF)
+   ==================================== */
+   
+@media print {
+    /* Esconde cabeçalho, navbar e botões na hora de imprimir */
+    .header, .navbar, .botoes-acao, .menu-toggle {
+        display: none !important;
+    }
+
+    body {
+        background: white; /* Economiza tinta */
+        color: black;
+    }
+
+    /* Ajusta a caixa para parecer um documento */
+    .glass-box {
+        box-shadow: none;
+        background: none;
+        backdrop-filter: none;
+        color: black;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid #ccc;
+    }
+    
+    /* Garante que textos brancos fiquem pretos */
+    .glass-box *, table, th, td, label {
+        color: black !important;
+    }
+
+    input, select {
+        border: none;
+        background: transparent;
+    }
+}

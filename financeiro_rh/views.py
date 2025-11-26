@@ -73,6 +73,7 @@ def contracheque(request):
     if request.method == 'POST':
         form = ContrachequeForm(request.POST)
         if form.is_valid():
+            nome = form.cleaned_data['nome_completo']
             salario_base = float(form.cleaned_data['venc_salario'])
             
             val_inss = calcular_inss(salario_base)
@@ -110,6 +111,7 @@ def rescisao(request):
     context = {}
     if request.method == 'POST':
         try:
+            nome = request.POST.get('nome_completo')
             data_admissao = request.POST.get('data_admissao')
             data_demissao = request.POST.get('data_demissao')
             motivo = request.POST.get('motivo')

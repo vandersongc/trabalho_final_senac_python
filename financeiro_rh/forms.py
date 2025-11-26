@@ -4,8 +4,11 @@ from django.contrib.auth.models import User
 
 # Formulário para entrada de dados do Contracheque
 class ContrachequeForm(forms.Form):
+    # ADICIONADO: Campo Nome Completo
+    nome_completo = forms.CharField(label='Nome do Funcionário', max_length=150, required=True)
     # DecimalField garante que o usuário digite um número válido.
     venc_salario = forms.DecimalField(label='Salário Base', min_value=0, decimal_places=2)
+    
 
 # Formulário para cálculo de Rescisão
 class RescisaoForm(forms.Form):
