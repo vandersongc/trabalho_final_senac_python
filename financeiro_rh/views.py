@@ -7,7 +7,7 @@ from datetime import datetime
 from .forms import ContrachequeForm, RescisaoForm, ContatoForm, CadastroForm
 from .models import HistoricoCalculo
 from .utils import calcular_inss, calcular_irrf, calcular_fgts
-from django.contrib.auth.forms import UserCreationForm
+
 
 def home(request):
     return render(request,'home.html')
