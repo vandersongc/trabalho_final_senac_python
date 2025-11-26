@@ -67,6 +67,10 @@
                 Voltar
             </a>
 
+            <a href="{% url 'rescisao' %}" class="submit-button" style="text-decoration: none; font-size: 1em; padding: 10px 20px; background-color: #dc3545;">
+                🧹 Limpar
+            </a>
+
             {% if user.is_authenticated %}
                 <button type="submit" class="submit-button" style="font-size: 1em; padding: 10px 20px;">
                     Calcular
@@ -83,6 +87,7 @@
             </button>
             {% endif %}
         </div>
+        
     </form>
 </div>
 {% endblock %}
