@@ -6,6 +6,8 @@
     <p class="panel-title">Demonstrativo de Pagamento</p>
     
     <form method="post" style="width: 100%;">
+
+       {% csrf_token %}  {{ form.as_p }}
        
         <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px; color: white;">
             <thead>
