@@ -3,7 +3,9 @@
 {% block title %}Contato{% endblock %}
 
 {% block content %}
-<form class="glass-box">
+<form class="glass-box" method="post">
+    {% csrf_token %}
+
     <p class="panel-title">Quero fazer um orçamento</p>
     
     <label for="name">Nome:</label>
@@ -12,12 +14,13 @@
     <label for="email">E-mail:</label>
     <input type="email" id="email" name="email" required>
 
-    <label for="messagem">Messagem</label>
+    <label for="menssagem">Messagem</label>
+    <textarea name="menssagem" id="menssagem"></textarea>
     
-    <textarea name="messagem" id="messagem"></textarea>
     
     <button type="submit" class="submit-button">
         →
     </button>
 </form>
+
 {% endblock %}

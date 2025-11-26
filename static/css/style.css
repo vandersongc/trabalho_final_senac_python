@@ -176,13 +176,14 @@ body {
     font-weight: bold;
     margin-bottom: 5px;
 }
-#messagem {
+.glass-box textarea {
     width: 320px;
     height: 150px;
     background-color: rgba(255, 255, 255, 0.8);
+    color: #333; /* Texto escuro dentro do input */
     border-radius: 10px;
-    padding: 10px;
-    font-size: 1.4em;
+    padding: 15px;
+    font-size: 1em;
     outline: none;
     border: none;
 
@@ -365,6 +366,10 @@ body {
         font-size: 1em;
     }
     .glass-box {
+        max-width: 90%; /* Ocupa quase toda a largura em telas pequenas */
+        padding: 30px;
+    }
+    .glass-box textarea {
         max-width: 90%; /* Ocupa quase toda a largura em telas pequenas */
         padding: 30px;
     }
