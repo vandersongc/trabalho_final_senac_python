@@ -82,6 +82,7 @@ def contracheque(request):
             HistoricoCalculo.objects.create(
                 usuario=request.user,
                 tipo='contracheque',
+                nome_funcionario=nome,
                 salario_base=salario_base,
                 resultado_liquido=salario_liquido
             )
@@ -151,6 +152,7 @@ def rescisao(request):
                 HistoricoCalculo.objects.create(
                     usuario=request.user,
                     tipo='rescisao',
+                    nome_funcionario=nome,
                     salario_base=ultimo_salario,
                     resultado_liquido=total_rescisao
                 )

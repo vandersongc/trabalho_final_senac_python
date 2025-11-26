@@ -18,10 +18,13 @@ class HistoricoCalculo(models.Model):
     
     # Data e hora exata em que o cálculo foi feito (auto_now_add preenche automaticamente).
     data_calculo = models.DateTimeField(auto_now_add=True)
+
+    # ADICIONADO: Campo para salvar o nome de quem foi calculado
+    nome_funcionario = models.CharField(max_length=150, default="Não Informado")
     
     # Armazena os valores monetários. DecimalField é mais preciso que FloatField para dinheiro.
-    salario_base = models.DecimalField(max_digits=10, decimal_places=2)
-    resultado_liquido = models.DecimalField(max_digits=10, decimal_places=2)
+    salario_base = models.DecimalField(max_digits=15, decimal_places=2)
+    resultado_liquido = models.DecimalField(max_digits=15, decimal_places=2)
 
     # Representação em string do objeto (aparece assim no painel administrativo do Django).
     def __str__(self):

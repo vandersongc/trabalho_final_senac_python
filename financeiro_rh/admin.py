@@ -2,9 +2,9 @@ from django.contrib import admin
 from .models import HistoricoCalculo
 
 class HistoricoCalculoAdmin(admin.ModelAdmin):
-    list_display = ('usuario', 'tipo', 'salario_base', 'resultado_liquido', 'data_calculo')
+    list_display = ('nome_funcionario', 'usuario', 'tipo', 'salario_base', 'resultado_liquido', 'data_calculo')
     list_filter = ('tipo', 'data_calculo')
-    search_fields = ('usuario__username', 'usuario__email')
+    search_fields = ('nome_funcionario', 'usuario__username', 'usuario__email') # Adicionado busca por nome
     ordering = ('-data_calculo',)
 
     # --- Lógica de Segurança de Roles ---
