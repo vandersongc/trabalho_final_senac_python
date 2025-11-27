@@ -14,13 +14,33 @@
     <label for="email">E-mail:</label>
     <input type="email" id="email" name="email" required>
 
-    <label for="menssagem">Messagem</label>
-    <textarea name="menssagem" id="menssagem"></textarea>
+    <label for="mensagem">Messagem</label>
+    <textarea name="mensagem" id="mensagem"></textarea>
     
     
     <button type="submit" class="submit-button">
         →
     </button>
 </form>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            {% for message in messages %}
+                Swal.fire({
+                    title: 'Sucesso!',
+                    text: '{{ message }}', // Pega o texto "Obrigado, [Nome]..."
+                    icon: 'success',
+                    confirmButtonText: 'Legal!',
+                    confirmButtonColor: '#6a11cb', // Roxo do seu tema
+                    background: '#f0f8ff',
+                    backdrop: `rgba(0,0,123,0.4)`
+                });
+            {% endfor %}
+        });
+    </script>
+{% endif %}
 
 {% endblock %}
