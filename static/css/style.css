@@ -369,26 +369,71 @@ body {
         max-width: 90%; /* Ocupa quase toda a largura em telas pequenas */
         padding: 30px;
     }
-/* Estilo para a caixa de mensagem (Textarea) */
-.glass-box textarea {
-    /* RESPONSIVIDADE: Muda de 320px fixo para 100% do espaço disponível */
-    width: 100%; 
-    max-width: 100%; /* Garante que não ultrapasse a borda */
+
+    /* Estilo para a caixa de mensagem (Textarea) */
+    .glass-box textarea {
+        /* RESPONSIVIDADE: Muda de 320px fixo para 100% do espaço disponível */
+        width: 100%; 
+        max-width: 100%; /* Garante que não ultrapasse a borda */
+        
+        height: 150px; /* Altura fixa */
+        
+        /* Estilos visuais (mantendo o padrão dos inputs) */
+        background-color: rgba(255, 255, 255, 0.8);
+        color: #333; 
+        border-radius: 10px;
+        padding: 15px;
+        font-size: 1em;
+        font-family: 'Arial', sans-serif; /* Mantém a fonte igual aos outros campos */
+        
+        outline: none;
+        border: none;
+        resize: vertical; /* Permite redimensionar apenas a altura */
+    }
+
+/* --- 1. CENTRALIZAÇÃO PERFEITA DO CONTAINER --- */
+    /* Alvo: A camada de fundo (overlay) que cobre a tela inteira */
+    div:where(.swal2-container) {
+        display: flex !important;           /* Ativa o Flexbox */
+        align-items: center !important;     /* Centraliza VERTICALMENTE */
+        justify-content: center !important; /* Centraliza HORIZONTALMENTE */
+        padding: 0 !important;              /* Remove espaçamentos que empurram o conteúdo */
+        min-height: 100vh !important;       /* Garante que o fundo ocupe 100% da altura da tela */
+        box-sizing: border-box !important;
+    }
+
+    /* --- 2. AJUSTE DA CAIXA DO POP-UP --- */
+    div:where(.swal2-popup) {
+        width: 85% !important;              /* Largura confortável */
+        max-width: 350px !important;        /* Limite para não ficar gigante */
+        margin: 0 !important;               /* Remove margens (o Flexbox já centraliza) */
+        font-size: 0.9em !important;        /* Texto um pouco menor */
+        padding: 1.5em !important;          /* Espaçamento interno equilibrado */
+    }
+
+    /* --- 3. AJUSTE DO ÍCONE "V" (Mantendo a proporção) --- */
+    div:where(.swal2-icon) {
+        width: 5em !important;
+        height: 5em !important;
+        margin: 0 auto 15px auto !important; /* Centraliza e dá espaço abaixo */
+        transform: scale(0.7) !important;    /* Diminui visualmente sem quebrar o desenho */
+    }
     
-    height: 150px; /* Altura fixa */
+    /* Ajuste de margem para o título não colar no ícone */
+    div:where(.swal2-title) {
+        padding-top: 0 !important;
+    }
+        
+    }
     
-    /* Estilos visuais (mantendo o padrão dos inputs) */
-    background-color: rgba(255, 255, 255, 0.8);
-    color: #333; 
-    border-radius: 10px;
-    padding: 15px;
-    font-size: 1em;
-    font-family: 'Arial', sans-serif; /* Mantém a fonte igual aos outros campos */
-    
-    outline: none;
-    border: none;
-    resize: vertical; /* Permite redimensionar apenas a altura */
-}
+    /* Ajuste fino para o texto não ficar colado no ícone */
+    div:where(.swal2-html-container) {
+        margin-top: 0 !important;
+    }
+    /* Ajuste de margem para o título não colar no ícone */
+    div:where(.swal2-title) {
+        padding-top: 0 !important;
+    }
 }
 
 /* ====================================
