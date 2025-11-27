@@ -370,24 +370,24 @@ body {
         padding: 30px;
     }
 /* Estilo para a caixa de mensagem (Textarea) */
-    #mensagem {
- 
+.glass-box textarea {
+    /* RESPONSIVIDADE: Muda de 320px fixo para 100% do espaço disponível */
+    width: 100%; 
+    max-width: 100%; /* Garante que não ultrapasse a borda */
     
-    height: 150px; /* Altura fixa inicial */
+    height: 150px; /* Altura fixa */
     
-    /* Estilos visuais (para combinar com os inputs existentes) */
+    /* Estilos visuais (mantendo o padrão dos inputs) */
     background-color: rgba(255, 255, 255, 0.8);
+    color: #333; 
     border-radius: 10px;
-    border: none;
     padding: 15px;
-    
-    /* Tipografia */
-    color: #333;
     font-size: 1em;
-    font-family: 'Arial', sans-serif; /* Importante para manter a fonte igual aos inputs */
+    font-family: 'Arial', sans-serif; /* Mantém a fonte igual aos outros campos */
     
     outline: none;
-    resize: vertical; /* Permite ao usuário aumentar a altura, mas não a largura */
+    border: none;
+    resize: vertical; /* Permite redimensionar apenas a altura */
 }
 }
 
